@@ -39,14 +39,49 @@ gcloud run deploy ${JOB_NAME} \
   --region=${LOCATION}
 ```
 
-Execution from a local machine with a Cloud Build yaml file :
+Build and Publish Cloud Run Docker image:
 
 ```bash
 gcloud builds submit \
     --project=$PROJECT_ID \
     --region=$LOCATION \
-    --config deploy-cloud-run-job.yaml \
-    --substitutions _SERVICE_ACCOUNT="$SERVICE_ACCOUNT",_REPO_NAME="$REPO_NAME",_JOB_NAME="$JOB_NAME",_IMAGE_TAG="$IMAGE_TAG",_OUTPUT_DATASET="$OUTPUT_DATASET",_OUTPUT_TABLE="$OUTPUT_TABLE",_INPUT_BUCKET="$INPUT_BUCKET",_INPUT_OBJECT="$INPUT_OBJECT" \
+    --config build-cloud-run-job-docker-image.yaml \
+    --substitutions _REPO_NAME="$REPO_NAME",_JOB_NAME="$JOB_NAME",_IMAGE_TAG="$IMAGE_TAG" \
+    --verbosity="debug" .
+```
+
+Deploy the Cloud Run job and scheduler with gcloud commands:
+
+```bash
+gcloud builds submit \
+    --project=$PROJECT_ID \
+    --region=$LOCATION \
+    --config deploy-cloud-run-job-with-gcloud.yaml \
+    --substitutions _SERVICE_ACCOUNT="$SERVICE_ACCOUNT",_REPO_NAME="$REPO_NAME",_JOB_NAME="$JOB_NAME",_IMAGE_TAG="$IMAGE_TAG",_OUTPUT_DATASET="$OUTPUT_DATASET",_OUTPUT_TABLE="$OUTPUT_TABLE",_INPUT_BUCKET="$INPUT_BUCKET",_INPUT_OBJECT="$INPUT_OBJECT",_SCHEDULER_NAME="$SCHEDULER_NAME",_SCHEDULER_CRON="$SCHEDULER_CRON" \
+    --verbosity="debug" .
+```
+
+Deploy the Cloud Run job and scheduler with Terraform:
+
+Plan:
+
+```bash
+gcloud builds submit \
+    --project=$PROJECT_ID \
+    --region=$LOCATION \
+    --config deploy-cloud-run-job-with-terraform-plan.yaml \
+    --substitutions _TF_STATE_BUCKET="$TF_STATE_BUCKET",_TF_STATE_PREFIX="$TF_STATE_PREFIX",_SERVICE_ACCOUNT="$SERVICE_ACCOUNT",_REPO_NAME="$REPO_NAME",_JOB_NAME="$JOB_NAME",_IMAGE_TAG="$IMAGE_TAG",_OUTPUT_DATASET="$OUTPUT_DATASET",_OUTPUT_TABLE="$OUTPUT_TABLE",_INPUT_BUCKET="$INPUT_BUCKET",_INPUT_OBJECT="$INPUT_OBJECT",_SCHEDULER_NAME="$SCHEDULER_NAME",_SCHEDULER_CRON="$SCHEDULER_CRON" \
+    --verbosity="debug" .
+```
+
+Apply:
+
+```bash
+gcloud builds submit \
+    --project=$PROJECT_ID \
+    --region=$LOCATION \
+    --config deploy-cloud-run-job-with-terraform-apply.yaml \
+    --substitutions _TF_STATE_BUCKET="$TF_STATE_BUCKET",_TF_STATE_PREFIX="$TF_STATE_PREFIX",_SERVICE_ACCOUNT="$SERVICE_ACCOUNT",_REPO_NAME="$REPO_NAME",_JOB_NAME="$JOB_NAME",_IMAGE_TAG="$IMAGE_TAG",_OUTPUT_DATASET="$OUTPUT_DATASET",_OUTPUT_TABLE="$OUTPUT_TABLE",_INPUT_BUCKET="$INPUT_BUCKET",_INPUT_OBJECT="$INPUT_OBJECT",_SCHEDULER_NAME="$SCHEDULER_NAME",_SCHEDULER_CRON="$SCHEDULER_CRON" \
     --verbosity="debug" .
 ```
 
@@ -60,7 +95,7 @@ gcloud beta builds triggers create manual \
     --repo="https://github.com/tosun-si/teams-league-cloudrun-job" \
     --repo-type="GITHUB" \
     --branch="main" \
-    --build-config="deploy-cloud-run-job.yaml" \
+    --build-config="deploy-cloud-run-job-with-gcloud.yaml" \
     --substitutions _SERVICE_ACCOUNT="$SERVICE_ACCOUNT",_REPO_NAME="$REPO_NAME",_JOB_NAME="$JOB_NAME",_IMAGE_TAG="$IMAGE_TAG",_OUTPUT_DATASET="$OUTPUT_DATASET",_OUTPUT_TABLE="$OUTPUT_TABLE",_INPUT_BUCKET="$INPUT_BUCKET",_INPUT_OBJECT="$INPUT_OBJECT" \
     --verbosity="debug"
 ```

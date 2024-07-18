@@ -1,0 +1,12 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    script: |
+      docker build -f team_league/job/Dockerfile -t $JOB_NAME .
+      docker tag $JOB_NAME $LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$JOB_NAME:$IMAGE_TAG
+      docker push $LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$JOB_NAME:$IMAGE_TAG
+    env:
+      - 'PROJECT_ID=$PROJECT_ID'
+      - 'LOCATION=$LOCATION'
+      - 'REPO_NAME=$_REPO_NAME'
+      - 'JOB_NAME=$_JOB_NAME'
+      - 'IMAGE_TAG=$_IMAGE_TAG'

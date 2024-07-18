@@ -1,0 +1,22 @@
+steps:
+  - name: google/cloud-sdk:483.0.0
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        ./scripts/deploy_cloud_run_job.sh \
+        && ./scripts/deploy_scheduler.sh
+    env:
+      - 'PROJECT_ID=$PROJECT_ID'
+      - 'LOCATION=$LOCATION'
+      - 'SERVICE_ACCOUNT=$_SERVICE_ACCOUNT'
+      - 'REPO_NAME=$_REPO_NAME'
+      - 'JOB_NAME=$_JOB_NAME'
+      - 'IMAGE_TAG=$_IMAGE_TAG'
+      - 'OUTPUT_DATASET=$_OUTPUT_DATASET'
+      - 'OUTPUT_TABLE=$_OUTPUT_TABLE'
+      - 'INPUT_BUCKET=$_INPUT_BUCKET'
+      - 'INPUT_OBJECT=$_INPUT_OBJECT'
+      - 'SCHEDULER_NAME=$_SCHEDULER_NAME'
+      - 'SCHEDULER_CRON=$_SCHEDULER_CRON'
+
