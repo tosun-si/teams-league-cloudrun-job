@@ -85,6 +85,17 @@ gcloud builds submit \
     --verbosity="debug" .
 ```
 
+Desroy:
+
+```bash
+gcloud builds submit \
+    --project=$PROJECT_ID \
+    --region=$LOCATION \
+    --config deploy-cloud-run-job-with-terraform-destroy.yaml \
+    --substitutions _TF_STATE_BUCKET="$TF_STATE_BUCKET",_TF_STATE_PREFIX="$TF_STATE_PREFIX",_SERVICE_ACCOUNT="$SERVICE_ACCOUNT",_REPO_NAME="$REPO_NAME",_JOB_NAME="$JOB_NAME",_IMAGE_TAG="$IMAGE_TAG",_OUTPUT_DATASET="$OUTPUT_DATASET",_OUTPUT_TABLE="$OUTPUT_TABLE",_INPUT_BUCKET="$INPUT_BUCKET",_INPUT_OBJECT="$INPUT_OBJECT",_SCHEDULER_NAME="$SCHEDULER_NAME",_SCHEDULER_CRON="$SCHEDULER_CRON" \
+    --verbosity="debug" .
+```
+
 Execution with a Cloud Build manual trigger :
 
 ```bash

@@ -1,5 +1,5 @@
 steps:
-  - name: google/cloud-sdk:483.0.0
+  - name: google/cloud-sdk:484.0.0-slim
     entrypoint: 'bash'
     args:
       - '-c'

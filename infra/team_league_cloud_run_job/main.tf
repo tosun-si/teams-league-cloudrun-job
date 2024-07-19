@@ -11,6 +11,10 @@ resource "google_cloud_run_v2_job" "team_league_cloud_run_job" {
         image = "${var.location}-docker.pkg.dev/${var.project_id}/${var.repo_name}/${var.job_name}:${var.image_tag}"
 
         env {
+          name  = "PROJECT_ID"
+          value = var.project_id
+        }
+        env {
           name  = "INPUT_BUCKET"
           value = var.input_bucket
         }
