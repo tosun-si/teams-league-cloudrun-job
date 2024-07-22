@@ -2,17 +2,13 @@
 
 Project showing a complete use case with a Cloud Run Job written with a Python module and multiple files.
 
-The link to the article :
-
-https://medium.com/@mazlum.tosun/cloud-run-service-with-a-python-module-fastapi-and-uvicorn-24c94090a008
-
 The video in English :
 
-https://youtu.be/rNVDnqpmpIU
+https://youtu.be/b6eVoGMPQZc
 
 The video in French :
 
-https://youtu.be/MJ8WfgnE-wo
+https://youtu.be/3pkuYxEiHC4
 
 ## Build the container for Cloud Run Job with Cloud Build
 
@@ -85,7 +81,7 @@ gcloud builds submit \
     --verbosity="debug" .
 ```
 
-Desroy:
+Destroy:
 
 ```bash
 gcloud builds submit \
