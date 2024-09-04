@@ -2,6 +2,8 @@
 
 Project showing a complete use case with a Cloud Run Job written with a Python module and multiple files.
 
+![cloud_run_job_python_module.png](diagram%2Fcloud_run_job_python_module.png)
+
 The video in English :
 
 https://youtu.be/b6eVoGMPQZc
